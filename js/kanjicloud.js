@@ -20,6 +20,14 @@
     const database = firebase.database();
     const ref = database.ref("/");
 
+    var y = 987654321;
+    function xorshift() {
+        y ^= y << 13;
+        y ^= y >> 17;
+        y ^= y << 15;
+        return (y/1000000000) - Math.floor(y/1000000000);
+    }
+
     function draw_cloud(snap) {
         let list = snap.val();
         let data = _.countBy(list);
@@ -38,7 +46,7 @@
 
         d3.layout.cloud().size([w, h])
             .words(words)
-            .rotate(function() { return (~~(Math.random() * 6) - 3) * 30; })
+            .rotate(function() { return (~~(xorshift() * 6) - 3) * 30; })
             .font("Impact")
             .fontSize(function(d) { return d.size; })
             .on("end", draw) //描画関数の読み込み

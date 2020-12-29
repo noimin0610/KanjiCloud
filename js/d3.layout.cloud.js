@@ -8,6 +8,14 @@ var cloudRadians = Math.PI / 180,
     cw = 1 << 11 >> 5,
     ch = 1 << 11;
 
+var y = 123456789;
+function xorshift() {
+    y ^= y << 13;
+    y ^= y >> 17;
+    y ^= y << 15;
+    return (y/1000000000) - Math.floor(y/1000000000);
+}
+
 module.exports = function() {
     var size = [256, 256],
         text = cloudText,
@@ -22,7 +30,7 @@ module.exports = function() {
         timeInterval = Infinity,
         event = dispatch("word", "end"),
         timer = null,
-        random = Math.random,
+        random = xorshift,
         cloud = {},
         canvas = cloudCanvas;
 
