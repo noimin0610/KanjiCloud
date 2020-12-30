@@ -1,1 +1,4 @@
-js/data.json
+js/sample.json
+.env
+.python-version
+db/data/
