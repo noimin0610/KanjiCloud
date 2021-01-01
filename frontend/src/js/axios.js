@@ -1,5 +1,5 @@
 import * as _axios from 'axios'
-_axios.defaults.baseURL = BACK_DOMAIN
+_axios.defaults.baseURL = "https://kanji-cloud-api.herokuapp.com"
 
 export let handleError = (error) => {
     alert("通信エラーが発生しました。")
