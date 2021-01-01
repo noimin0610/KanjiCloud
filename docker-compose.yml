@@ -34,4 +34,17 @@ services:
     volumes:
       - ./backend:/code:cached
     command: bash -c 'flask run --host=0.0.0.0 --port=5000 --debugger --reload'
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - 8080:8080
+    environment:
+      BACK_DOMAIN: http://localhost:5000
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+    command: sh -c 'yarn && yarn run serve'
   
