@@ -55,7 +55,7 @@
     maxlength="{MAX_LENGTH}"
     placeholder="例: 挑"
     bind:value={kanji}
-    on:input={() => { errorMessage = ''; postMessage = '' }}>
+    on:input={() => { postMessage = ''; validate() }}>
 <button
     type="submit"
     class="btn btn-primary ml-3"
