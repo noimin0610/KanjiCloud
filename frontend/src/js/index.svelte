@@ -34,4 +34,5 @@
 </script>
 
 <KanjiCloud data={data} on:toggleAutoUpdating={toggleAutoUpdating}/>
-<Form/>
+<h1>現在、漢字の投稿はできません。</h1>
+<!-- <Form/> -->
