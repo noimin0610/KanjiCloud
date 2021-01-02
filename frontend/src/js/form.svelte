@@ -1,47 +1,71 @@
 <script>
     import { axios, handleError } from './axios'
+    import jQuery from 'jquery'
         
     const MAX_LENGTH = 1;
     const KANJI_PATTERN = /([\u{3005}\u{3007}\u{303b}\u{3400}-\u{9FFF}\u{F900}-\u{FAFF}\u{20000}-\u{2FFFF}][\u{E0100}-\u{E01EF}\u{FE00}-\u{FE02}]?)/mu;
 
     let kanji = ''
+    let prevKanji = ''
     let errorMessage = ''
+    let postMessage = ''
+
+    let kanjiCookie = document.cookie
+        .split(';')
+        .find(row => row.startsWith('kanji'))
+    if (kanjiCookie) {
+        prevKanji = kanjiCookie.split('=')[1]
+        kanji = prevKanji
+    }
+
+    let validate = () => {
+        if (kanji.length === 0) {
+            return '入力必須です'
+        } else if (!KANJI_PATTERN.test(kanji)) {
+            return '漢字を入力してください'
+        }
+    }
+
+    $: {
+        if(kanji) errorMessage = validate()
+    }
 
     let sendKanji = () => {
-        if (kanji.length === 0) {
-            errorMessage = '入力必須です'
-        } else if (!KANJI_PATTERN.test(kanji)) {
-            errorMessage = '漢字を入力してください'
-        } else {
+        errorMessage = validate()
+        if (!errorMessage) {
             // ここで漢字の送信 / 更新処理を実行
-            axios.post('/', { kanji: kanji })
+            axios.post('/', { kanji: kanji, prevKanji: prevKanji })
             .then((res) => {
-                alert(`漢字「${kanji}」を投稿しました！`);
+                postMessage = `漢字「${kanji}」を投稿しました！`;
             })
-            .error((e) => handleError(e))
+            .catch((e) => handleError(e))
+            document.cookie = `kanji=${kanji};SameSite=strict`
         }
     }
 </script>
 
-<form onsubmit="return false">
+<h1>今年の抱負を漢字一文字で表すと？</h1>
+<form
+    onsubmit="return false"
+    class="form-group {errorMessage ? "has-danger" : (postMessage ? "has-success" : "")}">
 <input
     id="kanji"
+    class="form-control {errorMessage ? "is-invalid" : (postMessage ? "is-valid" : "")}"
     type="text"
     maxlength="{MAX_LENGTH}"
-    placeholder="今年の抱負を漢字で表すと?"
+    placeholder="例: 挑"
     bind:value={kanji}
-    on:input={() => errorMessage = ''}>
-
+    on:input={() => { errorMessage = ''; postMessage = '' }}>
 <button
     type="submit"
     class="btn btn-primary ml-3"
     on:click={sendKanji}>
     送信
 </button>
-</form>
-
 {#if errorMessage}
-    <div class="error">
-        {errorMessage}
-    </div>
+    <div class="feedback invalid-feedback">{errorMessage}</div>
 {/if}
+{#if postMessage}
+    <div class="feedback valid-feedback">{postMessage}</div>
+{/if}
+</form>

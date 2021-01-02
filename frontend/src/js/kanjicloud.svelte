@@ -1,6 +1,7 @@
 <script>
     import * as d3 from 'd3'
     import * as cloud from 'd3-cloud'    
+    import { axios, handleError } from './axios'
     import jQuery from 'jquery'
     import 'bootstrap/js/dist/tooltip'
     import { createEventDispatcher, onMount } from 'svelte'
@@ -15,6 +16,17 @@
     export let data = []
 
     let checked = "checked"
+    let count = 0
+
+    let get_count = () => {
+        axios.get('/count')
+        .then((res) => {
+            count = res.data.count
+        })
+        .catch((e) => { handleError(e) })
+    }
+
+    get_count()
 
     let dispatchCheck = () => {
         dispatch('toggleAutoUpdating', { autoUpdating: checked })
@@ -39,6 +51,8 @@
             .fontSize((d) => { return d.size })
             .on("end", draw) //描画関数の読み込み
             .start()
+
+        get_count()
     }
 
     // wordcloud 描画
@@ -75,7 +89,8 @@
 
 <h1>皆さんの2021年の漢字</h1>
 <div id="kanjicloud">
-    <div>
+    <div id="kanjicloud-header">
+        <p>現在の投稿人数: {count}人</p>
         <input type="checkbox" id="auto-updating" bind:checked="{checked}" on:change={dispatchCheck}/>自動更新する (5秒おき)
     </div>
 </div>

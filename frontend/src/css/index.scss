@@ -4,12 +4,17 @@ body {
 
 input[type=text] {
     width: 200px;
-}
-
-.error {
-    color: red;
+    display: inline-block;
 }
 
 .kanji {
     cursor: pointer;
+}
+
+.btn {
+    font-size: 15px !important;
+}
+
+.feedback {
+    font-size: 15px !important;
 }
