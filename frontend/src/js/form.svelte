@@ -27,7 +27,7 @@
     }
 
     $: {
-        if(kanji) errorMessage = validate()
+        if(kanji || prevKanji) errorMessage = validate()
     }
 
     let sendKanji = () => {
