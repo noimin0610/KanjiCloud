@@ -4,7 +4,7 @@
     import KanjiCloud from './kanjicloud.svelte'
     import Form from './form.svelte'
 
-    const INTERVAL = 10000;
+    const interval = 10000;
 
     let data = []
     let getData = () => {
@@ -33,5 +33,5 @@
     })
 </script>
 
-<KanjiCloud data={data} on:toggleAutoUpdating={toggleAutoUpdating}/>
+<KanjiCloud data={data} interval={interval} on:toggleAutoUpdating={toggleAutoUpdating}/>
 <Form/>

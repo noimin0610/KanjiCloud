@@ -14,6 +14,7 @@
     const dispatch = createEventDispatcher()
 
     export let data = []
+    export let interval = 10000
 
     let checked = "checked"
     let count = 0
@@ -91,6 +92,6 @@
 <div id="kanjicloud">
     <div id="kanjicloud-header">
         <p>現在の投稿人数: {count}人</p>
-        <input type="checkbox" id="auto-updating" bind:checked="{checked}" on:change={dispatchCheck}/>自動更新する (10秒おき)
+        <input type="checkbox" id="auto-updating" bind:checked="{checked}" on:change={dispatchCheck}/>自動更新する ({interval/1000}秒おき)
     </div>
 </div>

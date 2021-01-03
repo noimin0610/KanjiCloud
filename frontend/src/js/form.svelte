@@ -1,6 +1,5 @@
 <script>
     import { axios, handleError } from './axios'
-    import jQuery from 'jquery'
         
     const MAX_LENGTH = 1;
     const KANJI_PATTERN = /([\u{3005}\u{3007}\u{303b}\u{3400}-\u{9FFF}\u{F900}-\u{FAFF}\u{20000}-\u{2FFFF}][\u{E0100}-\u{E01EF}\u{FE00}-\u{FE02}]?)/mu;
