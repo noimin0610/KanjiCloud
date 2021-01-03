@@ -91,6 +91,6 @@
 <div id="kanjicloud">
     <div id="kanjicloud-header">
         <p>現在の投稿人数: {count}人</p>
-        <input type="checkbox" id="auto-updating" bind:checked="{checked}" on:change={dispatchCheck}/>自動更新する (5秒おき)
+        <input type="checkbox" id="auto-updating" bind:checked="{checked}" on:change={dispatchCheck}/>自動更新する (10秒おき)
     </div>
 </div>

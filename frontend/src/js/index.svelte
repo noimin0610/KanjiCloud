@@ -4,7 +4,7 @@
     import KanjiCloud from './kanjicloud.svelte'
     import Form from './form.svelte'
 
-    const INTERVAL = 5000;
+    const INTERVAL = 10000;
 
     let data = []
     let getData = () => {
