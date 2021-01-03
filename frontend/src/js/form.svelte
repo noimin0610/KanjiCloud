@@ -37,9 +37,10 @@
             axios.post('/', { kanji: kanji, prevKanji: prevKanji })
             .then((res) => {
                 postMessage = `漢字「${kanji}」を投稿しました！`;
+                document.cookie = `kanji=${kanji};SameSite=strict`
+                prevKanji = kanji
             })
             .catch((e) => handleError(e))
-            document.cookie = `kanji=${kanji};SameSite=strict`
         }
     }
 </script>
