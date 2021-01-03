@@ -18,7 +18,7 @@
     let timerId = null
     let toggleAutoUpdating = (d) => {
         if(d.detail.autoUpdating) {
-            if(!timerId) setInterval(getData, INTERVAL)
+            if(!timerId) setInterval(getData, interval)
         } else {
             if(timerId) {
                 clearInterval(timerId)
@@ -29,7 +29,7 @@
 
     onMount(() => {
         getData()
-        timerId = setInterval(getData, INTERVAL)
+        timerId = setInterval(getData, interval)
     })
 </script>
 
