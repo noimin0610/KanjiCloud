@@ -13,6 +13,7 @@
     const textSizeMax = 100
     const dispatch = createEventDispatcher()
 
+    export let title = "皆さんの漢字"
     export let data = []
     export let interval = 10000
 
@@ -88,7 +89,7 @@
     }
 </script>
 
-<h1>皆さんの2021年の漢字</h1>
+<h1>{title}</h1>
 <div id="kanjicloud">
     <div id="kanjicloud-header">
         <p>現在の投稿人数: {count}人</p>

@@ -14,7 +14,7 @@ clean:
 
 ##### db #####
 db_psql:
-	docker-compose exec db psql -h 127.0.0.1 -p 5432 -U postgres
+	docker-compose exec postgres psql -h 127.0.0.1 -p 5432 -U postgres
 
 ##### backend #####
 back:

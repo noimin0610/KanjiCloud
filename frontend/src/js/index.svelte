@@ -6,6 +6,16 @@
 
     const interval = 10000;
 
+    let texts = {}
+    let getTexts = () => {
+        axios.get('/texts')
+            .then((res) => {
+                texts = res.data.texts
+                document.title = texts.title
+            })
+            .catch((e) => handleError(e))
+    }
+
     let data = []
     let getData = () => {
         axios.get('/')
@@ -27,11 +37,16 @@
         }
     }
 
-    onMount(() => {
+    let update = () => {
+        getTexts()
         getData()
-        timerId = setInterval(getData, interval)
+    }
+
+    onMount(() => {
+        update()
+        timerId = setInterval(update, interval)
     })
 </script>
 
-<KanjiCloud data={data} interval={interval} on:toggleAutoUpdating={toggleAutoUpdating}/>
-<Form/>
+<KanjiCloud title={texts.kanjicloud_title} data={data} interval={interval} on:toggleAutoUpdating={toggleAutoUpdating}/>
+<Form title={texts.form_title} />
